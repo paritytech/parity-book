@@ -1,0 +1,457 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <title>Condition Oriented Programming · GitBook</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.1.1">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="building-a-dapp.md" />
+    
+    
+    <link rel="prev" href="transaction-signer.md" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    Getting Started
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="using-parity.html">
+            
+                <a href="using-parity.html">
+            
+                    
+                    Using Parity
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="mining.html">
+            
+                <a href="mining.html">
+            
+                    
+                    Mining
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="dapps-ui.md">
+            
+                <span>
+            
+                    
+                    Dapps UI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="transaction-signer.md">
+            
+                <span>
+            
+                    
+                    Transaction Signer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.7" data-path="condition-oriented-programming.html">
+            
+                <a href="condition-oriented-programming.html">
+            
+                    
+                    Condition Oriented Programming
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="building-a-dapp.md">
+            
+                <span>
+            
+                    
+                    Building a Dapp
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Condition Oriented Programming</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="condition-orientated-programming">Condition-Orientated Programming</h1>
+<p>Condition-Orientated Programming (COP) is a hybrid approach between functional and imperative programming. Done properly it is a tool in your arsenal for writing safe, secure contracts. It helps make your contract code comprehensively auditable and - loosely speaking - informally provable to have correct run-time operation.</p>
+<p>COP is not language specific; it is more of a loose methodology than particular syntax. However, with its function modifiers and events, it is particularly well-suited to the Solidity language.</p>
+<p>Simply put, COP has just one main aim:</p>
+<p><strong>Function bodies should have no conditional paths.</strong></p>
+<p>Or alternatively:</p>
+<p><strong>Never mix transitions with conditions.</strong></p>
+<p>This may seem like a difficult goal to achieve for an imperative language, since conditional paths are how you achieve the rich state-transitions which allow interesting operational dynamics. To achieve it, we try to split all conditions apart from the state-transitions that they guard. We name each independently and combine to form real functions. </p>
+<p>The problem with such conditional paths within transition logic is that they add conceptual non-linearity over state semantics. Potential bugs hide when the programmer believes a conditional (and thus the state it projects onto) means one thing when in fact it means something subtly different.</p>
+<p>A single-level conditional is bad enough, but when multi-level conditionals are introduced, the complexity (i.e. the paths which the programmer must consider in all states of the world) increases exponentially and it quickly becomes impossible to reason about the entire contract&apos;s state transitions without formal tools not generrally available.</p>
+<p>COP addresses this by requiring the programmer to explicitly enumerate all such conditionals. Logic becomes flattened into non-conditional state-transactions. The condition fragments can then be properly documented, reused, reasoned-about and attributed with requirements and implications. Essentially, COP uses pre-conditions as a first-class citizen in programming.</p>
+<h2 id="how-it-works">How it works</h2>
+<p>If you have already used Solidity, the chances are that you inadvertedly flirted with COP already. Let&apos;s look at a simple token contract:</p>
+<pre><code>contract Token {
+    // The balance of everyone
+    mapping (address =&gt; uint) public balances;
+
+    // Constructor - we&apos;re a millionaire!
+    function() {
+        balances[msg.sender] = 1000000;
+    }
+
+    // Transfer `_amount` tokens of ours to `_dest`.
+    function transfer(uint _amount, address _dest) {
+        balances[msg.sender] -= _amount;
+        balances[_dest] += _amount;
+    }
+}
+</code></pre><p>The astute reader will realise there is a bug here: the <code>transfer</code> function doesn&apos;t ensure that the sender has enough in their account. The normal imperative-language fix for this would be to introduce an <code>if</code> statement:</p>
+<pre><code>function transfer(uint _amount, address _dest) {
+    if (balances[msg.sender] &gt;= _amount) {
+        balances[msg.sender] -= _amount;
+        balances[_dest] += _amount;
+    }
+}
+</code></pre><p>Or perhaps:</p>
+<pre><code>function transfer(uint _amount, address _dest) {
+    if (balances[msg.sender] &lt; _amount)
+        return;
+    balances[msg.sender] -= _amount;
+    balances[_dest] += _amount;
+}
+</code></pre><p>However both of these solutions rather miss the point of COP; we&apos;re muddling the implementation (which ever one we choose) with the <em>meaning</em>, which remains the same in both cases: that the executing account <code>msg.sender</code>, should have a balance of at least <code>_amount</code>. As a COP coder, we understand this problem perfectly since both solutions break our fundamental rule:</p>
+<p><strong>Function bodies should have no conditional paths.</strong></p>
+<p>So in COP, we rather <em>abstract</em> the condition (<code>balances[msg.sender] &gt;= _amount</code>) and create a function modifier:</p>
+<pre><code>modifier only_with_at_least(uint x) { if (balances[msg.sender] &gt;= x) _ }
+</code></pre><p>This piece of code fundamentally abstracts the notion of &quot;executing account has a balance of at least some particular amount&quot;. With it in place, we no longer need to think in terms of conditionals, and most importantly, we don&apos;t need to mix pre-condition logic with state-transition logic. This allows a far greater scope for human-understandable analysis of state-transitions.</p>
+<p>Here&apos;s the new <code>transfer</code> function:</p>
+<pre><code>function transfer(uint _amount, address _dest) only_with_at_least(_amount) {
+    balances[msg.sender] -= _amount;
+    balances[_dest] += _amount;
+}
+</code></pre><h2 id="abstraction-and-reuse">Abstraction and Reuse</h2>
+<p>Suppose we have another function, which allows anyone with a balance more than 1000 to vote on some issue. We&apos;ll assume for now that voting is just a case of setting the value of an <code>address</code>-indexed mapping.</p>
+<p>In our old scheme of things, we&apos;d have a function like this:</p>
+<pre><code>function vote(uint _opinion) {
+    if (balances[msg.sender] &gt;= 1000) {
+        votes[msg.sender] = _opinion;
+    }
+}
+</code></pre><p>Added to our old codebase, we would now have two similar-meaning conditionals. In principle, we would like to have only one such conditional, audited and documented once but used twice. With COP that&apos;s exactly what we do:</p>
+<pre><code>function vote(uint _opinion) only_when_at_least(1000) {
+    votes[msg.sender] = _opinion;
+}
+</code></pre><p>This makes our <code>vote</code> function substantially more readable and allows us to reuse important guard-logic, minimisnig our potential attack surface.</p>
+<h2 id="more-complex-transitions">More complex transitions</h2>
+<p>By discouraging conditional paths from our state-transitions, we limit the complexity of our state-transitions. This hugely helps with auditing since it allows us apply the divide and conquer strategy to program logic analysis and independently check the logic of state transitions from the conditional logic on which they are gated. However sometimes the state transition itself includes gated logic internally.</p>
+<p>Following on the voting example, suppose we extend the <code>transfer</code> function so that we ensure that any new, reduced, balance has no vote.</p>
+<p>In the traditional, imperative, way we would simply place a conditional near the balance reduction code:</p>
+<pre><code>function transfer(uint _amount, address _dest) {
+    if (balances[msg.sender] &gt;= _amount) {
+        balances[msg.sender] -= _amount;
+        balances[_dest] += _amount;
+        if (balances[msg.sender] &lt; 1000) {
+            votes[msg.sender] = 0;    // Clear their vote.
+        }
+    }
+}
+</code></pre><p>However, this rather goes against the grain of COP. However we cannot address this directly with a new function modifier since there is no obvious function to modify; we actually wish to place the guard within an internal scope of <code>transfer</code>. In this case (at least with Solidity), we rather create a new (inline) function:</p>
+<pre><code>function clear_undeserved_vote(account _who) only_with_under(1000) only_when_voted {
+    delete votes[_who];
+}
+</code></pre><p>Note <code>inline</code> is not yet available in Solidity; we would use it here whenever it be available. This function relies on two modifiers which are easily coded (and audited):</p>
+<pre><code>modifier only_with_under(uint x) { if (balances[msg.sender] &lt; x) _ }
+modifier only_when_voted { if (votes[msg.sender] != 0) _ }
+</code></pre><p>We can then use this function within our <code>transfer</code> function:</p>
+<pre><code>function transfer(uint _amount, address _dest) only_with_at_least(_amount) {
+    balances[msg.sender] -= _amount;
+    balances[_dest] += _amount;
+    clear_undeserved_vote();
+}
+</code></pre><h2 id="conclusion">Conclusion</h2>
+<p>The main part of our final contract has changed from:</p>
+<pre><code>contract Token
+{
+    //...
+
+    function transfer(uint _amount, address _dest) {
+        if (balances[msg.sender] &gt;= _amount) {
+            balances[msg.sender] -= _amount;
+            balances[_dest] += _amount;
+            if (balances[msg.sender] &lt; 1000) {
+                votes[msg.sender] = 0;    // Clear their vote.
+            }
+        }
+    }
+
+    function vote(uint _opinion) {
+        if (balances[msg.sender] &gt;= 1000) {
+            votes[msg.sender] = _opinion;
+        }
+    }
+}
+</code></pre><p>To the new:</p>
+<pre><code>contract Token
+{
+    //...
+
+    modifier only_with_at_least(uint x) { if (balances[msg.sender] &gt;= x) _ }
+    modifier only_with_under(uint x) { if (balances[msg.sender] &lt; x) _ }
+    modifier only_when_voted { if (votes[msg.sender] != 0) _ }
+
+    function clear_undeserved_vote(account _who) only_with_under(1000) only_when_voted {
+        delete votes[_who];
+    }
+
+    function transfer(uint _amount, address _dest) only_with_at_least(_amount) {
+        balances[msg.sender] -= _amount;
+        balances[_dest] += _amount;
+        clear_undeserved_vote();
+    }
+
+    function vote(uint _opinion) only_when_at_least(1000) {
+        votes[msg.sender] = _opinion;
+    }
+}
+</code></pre><p>The code we have now forces the coder to document the internals, abstracts the important parts to ensure that no copy/paste bugs don&apos;t creep in, and has no forking in the execution path. It can be documented and audited, piece-by-piece in a comprehensive and methodical fashion. And, even if left undocuemnted, it is far more comprehensible, with the named conditions than the original version which muddles conditions with logic.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="transaction-signer.md" class="navigation navigation-prev " aria-label="Previous page: Transaction Signer">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="building-a-dapp.md" class="navigation navigation-next " aria-label="Next page: Building a Dapp">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Condition Oriented Programming","level":"1.7","depth":1,"next":{"title":"Building a Dapp","level":"1.8","depth":1,"path":"building-a-dapp.md","ref":"building-a-dapp.md","articles":[]},"previous":{"title":"Transaction Signer","level":"1.6","depth":1,"path":"transaction-signer.md","ref":"transaction-signer.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"3.1.1","theme":"default","variables":{},"plugins":["hints"],"pluginsConfig":{"hints":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"condition-oriented-programming.md","mtime":"2016-06-26T18:28:32.000Z","type":"markdown"},"gitbook":{"version":"3.1.1","time":"2016-06-27T14:30:14.119Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

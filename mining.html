@@ -1,0 +1,345 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <title>Mining · GitBook</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.1.1">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="dapps-ui.md" />
+    
+    
+    <link rel="prev" href="using-parity.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="getting-started.html">
+            
+                <a href="getting-started.html">
+            
+                    
+                    Getting Started
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="using-parity.html">
+            
+                <a href="using-parity.html">
+            
+                    
+                    Using Parity
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4" data-path="mining.html">
+            
+                <a href="mining.html">
+            
+                    
+                    Mining
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="dapps-ui.md">
+            
+                <span>
+            
+                    
+                    Dapps UI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="transaction-signer.md">
+            
+                <span>
+            
+                    
+                    Transaction Signer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="condition-oriented-programming.html">
+            
+                <a href="condition-oriented-programming.html">
+            
+                    
+                    Condition Oriented Programming
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="building-a-dapp.md">
+            
+                <span>
+            
+                    
+                    Building a Dapp
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Mining</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="mining">Mining</h1>
+<p>Parity is designed to be fully compatible with <code>ethminer</code>. If you&apos;re already using a combination of <code>geth</code> and <code>ethminer</code> then you&apos;ll find mining with Parity very familiar.</p>
+<p>You&apos;ll need to install <code>ethminer</code>.</p>
+<h2 id="installing-ethminer">Installing ethminer</h2>
+<h3 id="ubuntu">Ubuntu</h3>
+<p>To install <code>ethminer</code> on Ubuntu, you can use the package manager:</p>
+<pre><code>sudo add-apt-repository ppa:ethereum/ethereum
+sudo apt-get update
+sudo apt-get install ethminer
+</code></pre><h3 id="mac-os-x-homebrew">Mac OS X Homebrew</h3>
+<p>TODO</p>
+<h3 id="building-ethminer">Building ethminer</h3>
+<p>There are packages built for various platforms, though if all else fails, you can just build it straight from the main repository:</p>
+<pre><code>git clone https://github.com/ethereum/cpp-ethereum
+cd cpp-ethereum
+mkdir build
+cd build
+cmake -DBUNDLE=miner ..
+</code></pre><p><code>ethminer</code> can be found in the <code>libethereum/ethminer</code> directory; you&apos;ll probably want to copy it to somewhere in your <code>$PATH</code>.</p>
+<h2 id="starting-it">Starting it</h2>
+<p>Once you have a synced Parity node, you&apos;ll be able to mine with <code>ethminer</code>. You&apos;ll probably want to set the destination address (where the rewards go). If you have an address already, great. If you don&apos;t, then you can make one in Parity with:</p>
+<pre><code>parity account new
+</code></pre><p>You&apos;ll be asked for a password and be given an address. Once done, you should run Parity and tell it to mine to that address when required. Supposing your address is <code>0037a6b811ffeb6e072da21179d11b1406371c63</code>, then you would run:</p>
+<pre><code>parity --author 0037a6b811ffeb6e072da21179d11b1406371c63
+</code></pre><p>Once Parity is running and synced, running <code>ethminer</code> with work without any further configuration. e.g. run <code>ethminer -G --opencl-device 0</code> to GPU mine on the first OpenCL device found.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="using-parity.html" class="navigation navigation-prev " aria-label="Previous page: Using Parity">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="dapps-ui.md" class="navigation navigation-next " aria-label="Next page: Dapps UI">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Mining","level":"1.4","depth":1,"next":{"title":"Dapps UI","level":"1.5","depth":1,"path":"dapps-ui.md","ref":"dapps-ui.md","articles":[]},"previous":{"title":"Using Parity","level":"1.3","depth":1,"path":"using-parity.md","ref":"using-parity.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"3.1.1","theme":"default","variables":{},"plugins":["hints"],"pluginsConfig":{"hints":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"mining.md","mtime":"2016-06-24T16:07:17.000Z","type":"markdown"},"gitbook":{"version":"3.1.1","time":"2016-06-27T14:30:14.119Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
